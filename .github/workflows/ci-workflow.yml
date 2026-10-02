@@ -27,7 +27,7 @@ jobs:
          pip install -r requirements-pyspark.txt
       - name: Run pytest & generate HTML report
         run: |
-         pytest \ 
+         pytest \
            --disable-warnings \
            --cov=./src \
            --cov-report=html
