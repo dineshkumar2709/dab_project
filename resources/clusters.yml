@@ -2,7 +2,6 @@ variables:
   ds3_v2_sn:
     type: complex
     default:
-      cluster_name: ""
       spark_version: 17.3.x-scala2.13
       node_type_id: Standard_D4ds_v5
       data_security_mode: DATA_SECURITY_MODE_AUTO

@@ -19,4 +19,4 @@ resources:
       channel: CURRENT
       catalog: "${var.catalog}"
       serverless: true
-      root_path: /Workspace/Users/dkm.done09@hotmail.com/citibike_pipeline_etl
+      root_path: ${workspace.file_path}/src

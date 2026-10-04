@@ -2,14 +2,17 @@ resources:
   jobs:
     citibike_etl_pipeline_nb:
       name: citibike_etl_pipeline_nb
+      job_clusters:
+        - job_cluster_key: ds3_v2_sn
+          new_cluster: ${var.ds3_v2_sn}
       tasks:
         - task_key: 00_Wheel_creation
+          job_cluster_key: ds3_v2_sn
           python_wheel_task:
             package_name: dab_project
             entry_point: main
-          existing_cluster_id: 0924-223206-q2ui4523
-          libraries: 
-            - whl: /Workspace/Users/dkm.done09@hotmail.com/dab_project-0.0.2-py3-none-any.whl
+          libraries:
+            - whl: ../dist/*.whl
         - task_key: 01_bronze
           depends_on:
           - task_key: 00_Wheel_creation
@@ -22,7 +25,7 @@ resources:
               processed_timestamp: "{{job.start_time.iso_datetime}}"
               catalog: "${var.catalog}"
             source: WORKSPACE
-          existing_cluster_id: 0924-223206-q2ui4523
+          job_cluster_key: ds3_v2_sn
         - task_key: 02_silver
           depends_on:
             - task_key: 01_bronze
@@ -35,7 +38,7 @@ resources:
               processed_timestamp: "{{job.start_time.iso_datetime}}"
               catalog: "${var.catalog}"
             source: WORKSPACE
-          existing_cluster_id: 0924-223206-q2ui4523
+          job_cluster_key: ds3_v2_sn
         - task_key: 03_gold_citibike_daily_ride_summary
           depends_on:
             - task_key: 02_silver
@@ -44,7 +47,7 @@ resources:
             base_parameters:
               catalog: "${var.catalog}"
             source: WORKSPACE
-          existing_cluster_id: 0924-223206-q2ui4523
+          job_cluster_key: ds3_v2_sn
         - task_key: 03_gold_citibike_daily_station_performance
           depends_on:
             - task_key: 02_silver
@@ -53,6 +56,6 @@ resources:
             base_parameters:
               catalog: "${var.catalog}"
             source: WORKSPACE
-          existing_cluster_id: 0924-223206-q2ui4523
+          job_cluster_key: ds3_v2_sn
       queue:
         enabled: true
