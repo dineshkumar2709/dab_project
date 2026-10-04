@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Set up python 3.12
-        uses: actions/setup-python@7
+        uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           
@@ -27,7 +27,7 @@ jobs:
          pip install -r requirements-pyspark.txt
       - name: Run pytest & generate HTML report
         run: |
-         pytest \ 
+         pytest \
            --disable-warnings \
            --cov=./src \
            --cov-report=html
